@@ -1,0 +1,12 @@
+<h1>Home Page</h1>
+<%= render "shared/messages" %>
+<% if user_signed_in? %>
+	<% if current_user.role!= "manager" %>
+		<h3><b>Project working on</b></h3>
+		<%= render "shared/user_assigned_project", obj: current_user %>
+	<% else %>
+		<%= render "shared/user_working", obj: User.where.not(role: "manager") %>
+	<% end %>
+<% else %>
+	<h3><%= link_to "Sign Up or Login", new_user_registration_path %></h3>
+<% end %>

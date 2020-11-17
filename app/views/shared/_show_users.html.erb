@@ -1,0 +1,17 @@
+<h4> User Working on these projects</h4>
+<div class="row">
+
+	<% @project.users.each do |p| %>
+
+		  <div class="col-sm-6 justify-content-left">
+		    <div class="card border-primary">
+		      <div class="card-body ">
+		      	<h5 class="card-title">Name is : &nbsp <%=p.name%></h5>
+		        <p class="card-text">Email is : &nbsp<%= p.email %></p>
+		        <p class="card-text">Person Role : &nbsp<%= p.role %></p>
+		      </div>
+		    </div>
+		  </div>
+
+	<% end %>
+</div>

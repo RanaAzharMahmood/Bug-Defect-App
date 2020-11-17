@@ -1,0 +1,12 @@
+<% if !obj.nil? %>
+	<% obj.projects.each do |p| %>
+
+		<div class="card" style="width: 18rem;">
+	  	<div class="card-body">
+				<h5 class="card-text"><%= link_to "Name: "+p.projectname, project_path(p)	 %> </h5>    
+	   		<p class="card-text"><%= p.manager.name %> </p>
+	        
+	  	</div>
+		</div>
+	<%end%>
+<%end %>	

@@ -1,0 +1,23 @@
+<div class="container justify-content-center">
+<h1 class="justify-content-center">Project Page</h1>
+
+
+<% @projects.each do |p| %>
+
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5><%= link_to "Project Name: "+p.projectname,project_path(p), class: "card-title"%></h5>
+    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+    
+    <p class="card-text"><%="Created By: "+	 p.manager.name %> </p>
+     <% if can? :update, @project %>
+   
+     <%= link_to "Edit Project", edit_project_path(p), class: "btn btn-info" %>
+
+    <%= link_to "Delete project", project_path(p),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure ?. Rethink" } %>
+    <% end %>
+  </div>
+</div>
+<%end%>
+</div>

@@ -1,0 +1,85 @@
+<div class="container flex-md-column justify-content-center">
+<div class="row ">
+  <div class="col-md-12">
+   
+    <%= form_for(@bug, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :title, "Title" %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field :title, class: "form-control",placeholder: "Name of Project", autofocus: true %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :description, "Description" %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_area :description, class: "form-control",placeholder: "Description for the Project", autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :deadline, "Deadline" %>
+        </div>
+        <div class="col-md-8">
+            <%= f.date_field :deadline, :data => { :provide => :datepicker }, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :image, "Image ScreenShot" %>
+        </div>
+        <div class="col-md-8">
+            <%= f.file_field :image, class: "form-control" %>
+        </div>
+      </div>
+      <% if  !  current_page?(controller: :bugs, action: :new) %>
+  <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :status, "Bug Status" %>
+        </div>
+        <div class="col-md-8">
+        <% if @bug.bug_type? && @bug.bug_type=="feature" %>
+          <%= f.select(:status, [['new', 'new'], ['started', 'started'],['completed', 'completed']]) %>
+          <% else %>
+
+          <%= f.select(:status, [['new', 'new'], ['started', 'started'],['resolved', 'resolved']]) %>          
+       <% end %>
+        </div>
+      </div>
+      <% end %>
+
+
+      
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :type, "Type" %>
+        </div>
+        <div class="col-md-8">
+          <%= f.select(:bug_type, [['Bug', 'bug'], ['Feature', 'feature']]) %>
+        </div>
+      </div>
+
+      <%= params.dig(:bug,:bug_type) %>
+      <% if params.dig(:bug,:project_id).present? %>
+      <%= f.hidden_field :project_id, value: params.dig(:bug,:project_id) %>
+      <% else %>
+      <%= f.hidden_field :project_id, value: params[:project_id] %>
+      <% end %>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <%= f.submit class: "btn btn-primary btn-lg btn-xlarge" %>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-md-4 col-md-offset-4 colormatch">
+      [ <%= link_to "Cancel request and return to HomePage", root_path %> ]
+    </div>
+
+  </div>
+</div>
+</div>

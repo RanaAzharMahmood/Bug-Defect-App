@@ -1,0 +1,12 @@
+<h3 class="justify-content-center"><U></U>ser Available</h3>
+
+	<% obj.each do |p| %>
+			<div class="card" style="width: 18rem;">
+			  <div class="card-body">		 
+			    
+			    <h5 class="card-text"><%= link_to "Name: "+p.name, "/project_assigned/"+p.id.to_s	 %> </h5>
+			    <p class="card-text"><%= "Role: "+p.role %> </p>
+			  </div>
+			</div>
+	<%end%>
+</div>

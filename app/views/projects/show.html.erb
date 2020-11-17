@@ -1,0 +1,50 @@
+<h1> Project "<%=@project.projectname%>" Details:</h1>
+<%= render "shared/error" ,obj:@project%>
+<%= render "shared/messages" %>
+
+<div class="card ">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text"></p>
+    <% if can? :create, Bug %>
+    <%= link_to "Create a bug", new_bug_path(:project_id => params[:id]), class: "btn btn-primary" %>
+    <%end %>
+
+
+    <% if can? :update, @project%>
+    <%= link_to "Edit Project", edit_project_path, class: "btn btn-info" %>
+    <%= link_to "Delete project", project_path,method: :delete, class: "btn btn-danger",data: { confirm: "Are you sure?" } %>
+    <%= render "shared/remove_user", obj: @object %>
+    <%= render partial: "shared/add_developer" , obj: @project%>
+    <%= render partial: "shared/add_qa" , obj: @project%>
+    <% end %>
+
+    <%= link_to "Back to Project list", projects_path, class: "btn btn-warning" %>
+  </div>
+
+</div>
+
+
+<%= render "shared/show_users", obj: @project.users %>
+
+<h3> Bugs Found in this project </h3>
+<% @project.bugs.each do |b| %>
+
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+
+    <h5><%= link_to "Bugs Found: "+b.title, bug_path(b) %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><b>Description:&nbsp</b><%=  b.description %></h6>
+    <h6 class="card-subtitle mb-2 text-muted"><b>Status :&nbsp</b><%=  b.status %></h6>
+    <h6 class="card-subtitle mb-2 text-muted"><b>Created By:&nbsp</b><%=  b.user.name %></h6>
+    <h6 class="card-subtitle mb-2 text-muted"><b>Role :&nbsp</b><%=  b.user.role %></h6>
+
+     <% if can? :update, b %>
+    <%= link_to "Edit Bugs Details",edit_bug_path(b),class: "btn btn-primary"%>
+     <%= link_to "Delete Bugs Details",bug_path(b),method: :delete,data: {confirm: "Are you sure"},class: "btn btn-danger"%>
+    <% end %>
+  </div>
+</div>
+<% end %>	    
